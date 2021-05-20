@@ -1,0 +1,570 @@
+root@b1565b132214:/# mysql
+ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: NO)
+root@b1565b132214:/# mysql -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.23 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> select version()
+    -> ;
++-----------+
+| version() |
++-----------+
+| 8.0.23    |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> create database auto
+    -> ;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> use auto
+Database changed
+mysql> create table auto(id int primary key auto_increment , s char(1));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> insert into auto (s) values ("A");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into auto (s) values ("B");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into auto (s) values ("C");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from auto;
++----+------+
+| id | s    |
++----+------+
+|  1 | A    |
+|  2 | B    |
+|  3 | C    |
++----+------+
+3 rows in set (0.00 sec)
+
+mysql> delete from auto where id = 3;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> commit
+    -> ;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from auto;
++----+------+
+| id | s    |
++----+------+
+|  1 | A    |
+|  2 | B    |
++----+------+
+2 rows in set (0.00 sec)
+
+mysql> show creata table auto;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'creata table auto' at line 1
+mysql> show create table auto;
++-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                   |
++-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| auto  | CREATE TABLE `auto` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `s` char(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> alter table auto auto_increment = 1;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show create table auto;
++-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                   |
++-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| auto  | CREATE TABLE `auto` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `s` char(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> show variables like "%auto%";
++----------------------------------------------+-------+
+| Variable_name                                | Value |
++----------------------------------------------+-------+
+| auto_generate_certs                          | ON    |
+| auto_increment_increment                     | 1     |
+| auto_increment_offset                        | 1     |
+| autocommit                                   | ON    |
+| automatic_sp_privileges                      | ON    |
+| caching_sha2_password_auto_generate_rsa_keys | ON    |
+| innodb_autoextend_increment                  | 64    |
+| innodb_autoinc_lock_mode                     | 2     |
+| innodb_stats_auto_recalc                     | ON    |
+| sha256_password_auto_generate_rsa_keys       | ON    |
+| sql_auto_is_null                             | OFF   |
++----------------------------------------------+-------+
+11 rows in set (0.00 sec)
+
+mysql> show variables like "%increment%";
++-----------------------------+-------+
+| Variable_name               | Value |
++-----------------------------+-------+
+| auto_increment_increment    | 1     |
+| auto_increment_offset       | 1     |
+| div_precision_increment     | 4     |
+| innodb_autoextend_increment | 64    |
++-----------------------------+-------+
+4 rows in set (0.00 sec)
+
+mysql> exti
+    ->
+    ->
+    ->
+    -> exit;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'exti
+
+
+
+exit' at line 1
+mysql> exit;
+Bye
+root@b1565b132214:/# vi /etc/mysql/
+conf.d/          my.cnf           my.cnf.fallback
+root@b1565b132214:/# vi /etc/mysql/my.cnf
+bash: vi: command not found
+root@b1565b132214:/# yum install vi
+bash: yum: command not found
+root@b1565b132214:/# apt-get install vi
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+E: Unable to locate package vi
+root@b1565b132214:/# apt-get install vim
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+E: Unable to locate package vim
+root@b1565b132214:/# apt-get update
+Get:1 http://repo.mysql.com/apt/debian buster InRelease [21.5 kB]
+Get:2 http://security.debian.org/debian-security buster/updates InRelease [65.4 kB]
+Get:3 http://deb.debian.org/debian buster InRelease [121 kB]
+Get:4 http://deb.debian.org/debian buster-updates InRelease [51.9 kB]
+Get:5 http://security.debian.org/debian-security buster/updates/main amd64 Packages [289 kB]
+Get:6 http://deb.debian.org/debian buster/main amd64 Packages [7907 kB]
+Get:7 http://deb.debian.org/debian buster-updates/main amd64 Packages [10.9 kB]
+Get:8 http://repo.mysql.com/apt/debian buster/mysql-8.0 amd64 Packages [6017 B]
+Fetched 8473 kB in 1s (5680 kB/s)
+Reading package lists... Done
+root@b1565b132214:/# apt-get install vi
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+E: Unable to locate package vi
+root@b1565b132214:/# apt-get install vim
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following additional packages will be installed:
+  vim-common vim-runtime xxd
+Suggested packages:
+  ctags vim-doc vim-scripts
+The following NEW packages will be installed:
+  vim vim-common vim-runtime xxd
+0 upgraded, 4 newly installed, 0 to remove and 7 not upgraded.
+Need to get 7390 kB of archives.
+After this operation, 33.7 MB of additional disk space will be used.
+Do you want to continue? [Y/n] Y
+Get:1 http://deb.debian.org/debian buster/main amd64 xxd amd64 2:8.1.0875-5 [140 kB]
+Get:2 http://deb.debian.org/debian buster/main amd64 vim-common all 2:8.1.0875-5 [195 kB]
+Get:3 http://deb.debian.org/debian buster/main amd64 vim-runtime all 2:8.1.0875-5 [5775 kB]
+Get:4 http://deb.debian.org/debian buster/main amd64 vim amd64 2:8.1.0875-5 [1280 kB]
+Fetched 7390 kB in 0s (27.5 MB/s)
+debconf: delaying package configuration, since apt-utils is not installed
+Selecting previously unselected package xxd.
+(Reading database ... 9231 files and directories currently installed.)
+Preparing to unpack .../xxd_2%3a8.1.0875-5_amd64.deb ...
+Unpacking xxd (2:8.1.0875-5) ...
+Selecting previously unselected package vim-common.
+Preparing to unpack .../vim-common_2%3a8.1.0875-5_all.deb ...
+Unpacking vim-common (2:8.1.0875-5) ...
+Selecting previously unselected package vim-runtime.
+Preparing to unpack .../vim-runtime_2%3a8.1.0875-5_all.deb ...
+
+# Copyright (c) 2017, Oracle and/or its affiliates. All rights reserved.
+Adding 'diversion of /usr/share/vim/vim81/doc/help.txt to /usr/share/vim/vim81/doc/help.txt.vim-tiny by vim-runtime'
+Adding 'diversion of /usr/share/vim/vim81/doc/tags to /usr/share/vim/vim81/doc/tags.vim-tiny by vim-runtime'
+Unpacking vim-runtime (2:8.1.0875-5) ...
+Selecting previously unselected package vim.
+Preparing to unpack .../vim_2%3a8.1.0875-5_amd64.deb ...
+Unpacking vim (2:8.1.0875-5) ...
+Setting up xxd (2:8.1.0875-5) ...
+Setting up vim-common (2:8.1.0875-5) ...
+Setting up vim-runtime (2:8.1.0875-5) ...
+Setting up vim (2:8.1.0875-5) ...
+update-alternatives: using /usr/bin/vim.basic to provide /usr/bin/vim (vim) in auto mode
+update-alternatives: using /usr/bin/vim.basic to provide /usr/bin/vimdiff (vimdiff) in auto mode
+update-alternatives: using /usr/bin/vim.basic to provide /usr/bin/rvim (rvim) in auto mode
+update-alternatives: using /usr/bin/vim.basic to provide /usr/bin/rview (rview) in auto mode
+update-alternatives: using /usr/bin/vim.basic to provide /usr/bin/vi (vi) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/da/man1/vi.1.gz because associated file /usr/share/man/da/man1/vim.1.gz (of link group vi) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/de/man1/vi.1.gz because associated file /usr/share/man/de/man1/vim.1.gz (of link group vi) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/fr/man1/vi.1.gz because associated file /usr/share/man/fr/man1/vim.1.gz (of link group vi) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/it/man1/vi.1.gz because associated file /usr/share/man/it/man1/vim.1.gz (of link group vi) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/ja/man1/vi.1.gz because associated file /usr/share/man/ja/man1/vim.1.gz (of link group vi) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/pl/man1/vi.1.gz because associated file /usr/share/man/pl/man1/vim.1.gz (of link group vi) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/ru/man1/vi.1.gz because associated file /usr/share/man/ru/man1/vim.1.gz (of link group vi) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/vi.1.gz because associated file /usr/share/man/man1/vim.1.gz (of link group vi) doesn't exist
+update-alternatives: using /usr/bin/vim.basic to provide /usr/bin/view (view) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/da/man1/view.1.gz because associated file /usr/share/man/da/man1/vim.1.gz (of link group view) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/de/man1/view.1.gz because associated file /usr/share/man/de/man1/vim.1.gz (of link group view) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/fr/man1/view.1.gz because associated file /usr/share/man/fr/man1/vim.1.gz (of link group view) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/it/man1/view.1.gz because associated file /usr/share/man/it/man1/vim.1.gz (of link group view) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/ja/man1/view.1.gz because associated file /usr/share/man/ja/man1/vim.1.gz (of link group view) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/pl/man1/view.1.gz because associated file /usr/share/man/pl/man1/vim.1.gz (of link group view) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/ru/man1/view.1.gz because associated file /usr/share/man/ru/man1/vim.1.gz (of link group view) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/view.1.gz because associated file /usr/share/man/man1/vim.1.gz (of link group view) doesn't exist
+update-alternatives: using /usr/bin/vim.basic to provide /usr/bin/ex (ex) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/da/man1/ex.1.gz because associated file /usr/share/man/da/man1/vim.1.gz (of link group ex) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/de/man1/ex.1.gz because associated file /usr/share/man/de/man1/vim.1.gz (of link group ex) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/fr/man1/ex.1.gz because associated file /usr/share/man/fr/man1/vim.1.gz (of link group ex) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/it/man1/ex.1.gz because associated file /usr/share/man/it/man1/vim.1.gz (of link group ex) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/ja/man1/ex.1.gz because associated file /usr/share/man/ja/man1/vim.1.gz (of link group ex) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/pl/man1/ex.1.gz because associated file /usr/share/man/pl/man1/vim.1.gz (of link group ex) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/ru/man1/ex.1.gz because associated file /usr/share/man/ru/man1/vim.1.gz (of link group ex) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/ex.1.gz because associated file /usr/share/man/man1/vim.1.gz (of link group ex) doesn't exist
+update-alternatives: using /usr/bin/vim.basic to provide /usr/bin/editor (editor) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/da/man1/editor.1.gz because associated file /usr/share/man/da/man1/vim.1.gz (of link group editor) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/de/man1/editor.1.gz because associated file /usr/share/man/de/man1/vim.1.gz (of link group editor) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/fr/man1/editor.1.gz because associated file /usr/share/man/fr/man1/vim.1.gz (of link group editor) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/it/man1/editor.1.gz because associated file /usr/share/man/it/man1/vim.1.gz (of link group editor) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/ja/man1/editor.1.gz because associated file /usr/share/man/ja/man1/vim.1.gz (of link group editor) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/pl/man1/editor.1.gz because associated file /usr/share/man/pl/man1/vim.1.gz (of link group editor) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/ru/man1/editor.1.gz because associated file /usr/share/man/ru/man1/vim.1.gz (of link group editor) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/editor.1.gz because associated file /usr/share/man/man1/vim.1.gz (of link group editor) doesn't exist
+root@b1565b132214:/# vim /etc/mysql/my.cnf
+root@b1565b132214:/# reboot
+bash: reboot: command not found
+root@b1565b132214:/# mysql -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.23 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show variables like "%log%"
+    -> ;
++------------------------------------------------+---------------------------------------------+
+| Variable_name                                  | Value                                       |
++------------------------------------------------+---------------------------------------------+
+| activate_all_roles_on_login                    | OFF                                         |
+| back_log                                       | 151                                         |
+| binlog_cache_size                              | 32768                                       |
+| binlog_checksum                                | CRC32                                       |
+| binlog_direct_non_transactional_updates        | OFF                                         |
+| binlog_encryption                              | OFF                                         |
+| binlog_error_action                            | ABORT_SERVER                                |
+| binlog_expire_logs_seconds                     | 2592000                                     |
+| binlog_format                                  | ROW                                         |
+| binlog_group_commit_sync_delay                 | 0                                           |
+| binlog_group_commit_sync_no_delay_count        | 0                                           |
+| binlog_gtid_simple_recovery                    | ON                                          |
+| binlog_max_flush_queue_time                    | 0                                           |
+| binlog_order_commits                           | ON                                          |
+| binlog_rotate_encryption_master_key_at_startup | OFF                                         |
+| binlog_row_event_max_size                      | 8192                                        |
+| binlog_row_image                               | FULL                                        |
+| binlog_row_metadata                            | MINIMAL                                     |
+| binlog_row_value_options                       |                                             |
+| binlog_rows_query_log_events                   | OFF                                         |
+| binlog_stmt_cache_size                         | 32768                                       |
+| binlog_transaction_compression                 | OFF                                         |
+| binlog_transaction_compression_level_zstd      | 3                                           |
+| binlog_transaction_dependency_history_size     | 25000                                       |
+| binlog_transaction_dependency_tracking         | COMMIT_ORDER                                |
+| expire_logs_days                               | 0                                           |
+| general_log                                    | OFF                                         |
+| general_log_file                               | /var/lib/mysql/b1565b132214.log             |
+| innodb_api_enable_binlog                       | OFF                                         |
+| innodb_flush_log_at_timeout                    | 1                                           |
+| innodb_flush_log_at_trx_commit                 | 1                                           |
+| innodb_log_buffer_size                         | 16777216                                    |
+| innodb_log_checksums                           | ON                                          |
+| innodb_log_compressed_pages                    | ON                                          |
+| innodb_log_file_size                           | 50331648                                    |
+| innodb_log_files_in_group                      | 2                                           |
+| innodb_log_group_home_dir                      | ./                                          |
+| innodb_log_spin_cpu_abs_lwm                    | 80                                          |
+| innodb_log_spin_cpu_pct_hwm                    | 50                                          |
+| innodb_log_wait_for_flush_spin_hwm             | 400                                         |
+| innodb_log_write_ahead_size                    | 8192                                        |
+| innodb_log_writer_threads                      | ON                                          |
+| innodb_max_undo_log_size                       | 1073741824                                  |
+| innodb_online_alter_log_max_size               | 134217728                                   |
+| innodb_print_ddl_logs                          | OFF                                         |
+| innodb_redo_log_archive_dirs                   |                                             |
+| innodb_redo_log_encrypt                        | OFF                                         |
+| innodb_undo_log_truncate                       | ON                                          |
+| log_bin_basename                               | /var/lib/mysql/binlog                       |
+| log_bin_index                                  | /var/lib/mysql/binlog.index                 |
+| log_bin_use_v1_row_events                      | OFF                                         |
+| log_error_services                             | log_filter_internal; log_sink_internal      |
+| log_error_suppression_list                     |                                             |
+| log_output                                     | FILE                                        |
+| log_queries_not_using_indexes                  | OFF                                         |
+| log_raw                                        | OFF                                         |
+| log_slave_updates                              | ON                                          |
+| log_slow_admin_statements                      | OFF                                         |
+| log_slow_extra                                 | OFF                                         |
+| log_slow_slave_statements                      | OFF                                         |
+| log_statements_unsafe_for_binlog               | ON                                          |
+| log_throttle_queries_not_using_indexes         | 0                                           |
+| log_timestamps                                 | UTC                                         |
+| max_binlog_cache_size                          | 18446744073709547520                        |
+| max_binlog_size                                | 1073741824                                  |
+| max_binlog_stmt_cache_size                     | 18446744073709547520                        |
+| max_relay_log_size                             | 0                                           |
+| relay_log                                      | b1565b132214-relay-bin                      |
+| relay_log_basename                             | /var/lib/mysql/b1565b132214-relay-bin       |
+| relay_log_index                                | /var/lib/mysql/b1565b132214-relay-bin.index |
+| relay_log_info_file                            | relay-log.info                              |
+| relay_log_info_repository                      | TABLE                                       |
+| relay_log_purge                                | ON                                          |
+| relay_log_recovery                             | OFF                                         |
+| relay_log_space_limit                          | 0                                           |
+| slow_query_log                                 | OFF                                         |
+| slow_query_log_file                            | /var/lib/mysql/b1565b132214-slow.log        |
+| sql_log_bin                                    | ON                                          |
+| sql_log_off                                    | OFF                                         |
+| sync_binlog                                    | 1                                           |
+| sync_relay_log                                 | 10000                                       |
+| sync_relay_log_info                            | 10000                                       |
++------------------------------------------------+---------------------------------------------+
+87 rows in set (0.00 sec)
+
+mysql> exit;
+Bye
+root@b1565b132214:/# shutdonw -r now
+bash: shutdonw: command not found
+root@b1565b132214:/# shutdown -r now
+bash: shutdown: command not found
+root@b1565b132214:/# exit
+exit
+PS C:\Users\81902> docker restart test-auto_incremet-mysql
+Error response from daemon: No such container: test-auto_incremet-mysql
+PS C:\Users\81902> docker ps
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS          PORTS                 NAMES
+b1565b132214   mysql:8.0.23   "docker-entrypoint.s…"   41 minutes ago   Up 41 minutes   3306/tcp, 33060/tcp   test-auto_increment-mysql
+PS C:\Users\81902> docker restart test-auto_increment-mysql
+PS C:\Users\81902> docker ps
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS         PORTS                 NAMES
+b1565b132214   mysql:8.0.23   "docker-entrypoint.s…"   42 minutes ago   Up 3 seconds   3306/tcp, 33060/tcp   test-auto_increment-mysql
+PS C:\Users\81902> docker exec -it test-auto_increment-mysql bash
+root@b1565b132214:/# mysql -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.23 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show variables like "%gene%"
+    -> ;
++----------------------------------------------+----------------------------------+
+| Variable_name                                | Value                            |
++----------------------------------------------+----------------------------------+
+| auto_generate_certs                          | ON                               |
+| caching_sha2_password_auto_generate_rsa_keys | ON                               |
+| general_log                                  | OFF                              |
+| general_log_file                             | /var/log/mysql/general-query.log |
+| generated_random_password_length             | 20                               |
+| histogram_generation_max_mem_size            | 20000000                         |
+| sha256_password_auto_generate_rsa_keys       | ON                               |
++----------------------------------------------+----------------------------------+
+7 rows in set (0.01 sec)
+
+mysql> set general_log = 1;
+ERROR 1229 (HY000): Variable 'general_log' is a GLOBAL variable and should be set with SET GLOBAL
+mysql> set gloabal general_log = 1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'general_log = 1' at line 1
+mysql>  SET GLOBAL general_log = 1;
+ERROR 29 (HY000): File '/var/log/mysql/general-query.log' not found (OS errno 2 - No such file or directory)
+mysql> exit
+Bye
+root@b1565b132214:/# touch
+touch: missing file operand
+Try 'touch --help' for more information.
+root@b1565b132214:/# touch /var/log/mysql/general-query.log
+touch: cannot touch '/var/log/mysql/general-query.log': No such file or directory
+root@b1565b132214:/# mkdir -p /var/log/mysql
+root@b1565b132214:/# touch /var/log/mysql/general-query.log
+root@b1565b132214:/# exit
+exit
+PS C:\Users\81902> docker exec -it test-auto_increment-mysql bash
+root@b1565b132214:/# mysql -p
+Enter password:
+ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: YES)
+root@b1565b132214:/# mysql -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.23 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql>  SET GLOBAL general_log = 1;
+ERROR 29 (HY000): File '/var/log/mysql/general-query.log' not found (OS errno 13 - Permission denied)
+mysql> exit
+Bye
+root@b1565b132214:/# ls -l /e
+entrypoint.sh  etc/
+root@b1565b132214:/# ls -l /e
+entrypoint.sh  etc/
+root@b1565b132214:/# ls -l /etc/
+.pwd.lock               default/                host.conf               ld.so.conf.d/           motd                    perl/                   rcS.d/                  ssl/
+X11/                    deluser.conf            hostname                ldap/                   mtab                    profile                 resolv.conf             subgid
+adduser.conf            dpkg/                   hosts                   libaudit.conf           mysql/                  profile.d/              rmt                     subuid
+alternatives/           environment             init.d/                 localtime               nsswitch.conf           rc0.d/                  securetty               systemd/
+apt/                    fstab                   inputrc                 logcheck/               opt/                    rc1.d/                  security/               terminfo/
+bash.bashrc             gai.conf                issue                   login.defs              os-release              rc2.d/                  selinux/                timezone
+bindresvport.blacklist  group                   issue.net               logrotate.d/            pam.conf                rc3.d/                  shadow                  update-motd.d/
+cron.daily/             group-                  kernel/                 machine-id              pam.d/                  rc4.d/                  shadow-                 vim/
+debconf.conf            gshadow                 ld.so.cache             mecabrc                 passwd                  rc5.d/                  shells                  xattr.conf
+debian_version          gshadow-                ld.so.conf              mke2fs.conf             passwd-                 rc6.d/                  skel/
+root@b1565b132214:/# ls -l /etc/
+.pwd.lock               default/                host.conf               ld.so.conf.d/           motd                    perl/                   rcS.d/                  ssl/
+X11/                    deluser.conf            hostname                ldap/                   mtab                    profile                 resolv.conf             subgid
+adduser.conf            dpkg/                   hosts                   libaudit.conf           mysql/                  profile.d/              rmt                     subuid
+alternatives/           environment             init.d/                 localtime               nsswitch.conf           rc0.d/                  securetty               systemd/
+apt/                    fstab                   inputrc                 logcheck/               opt/                    rc1.d/                  security/               terminfo/
+bash.bashrc             gai.conf                issue                   login.defs              os-release              rc2.d/                  selinux/                timezone
+bindresvport.blacklist  group                   issue.net               logrotate.d/            pam.conf                rc3.d/                  shadow                  update-motd.d/
+cron.daily/             group-                  kernel/                 machine-id              pam.d/                  rc4.d/                  shadow-                 vim/
+debconf.conf            gshadow                 ld.so.cache             mecabrc                 passwd                  rc5.d/                  shells                  xattr.conf
+debian_version          gshadow-                ld.so.conf              mke2fs.conf             passwd-                 rc6.d/                  skel/
+root@b1565b132214:/# ls -l /etc/m
+machine-id   mecabrc      mke2fs.conf  motd         mtab         mysql/
+root@b1565b132214:/# ls -l /var/lo
+local/ lock/  log/
+root@b1565b132214:/# ls -l /var/lo
+local/ lock/  log/
+root@b1565b132214:/# ls -l /var/log/
+alternatives.log  apt/              btmp              dpkg.log          faillog           lastlog           mysql/            wtmp
+root@b1565b132214:/# ls -l /var/log/mysql/
+total 0
+-rw-r--r-- 1 root root 0 May 20 22:46 general-query.log
+root@b1565b132214:/# chmod
+chmod: missing operand
+Try 'chmod --help' for more information.
+root@b1565b132214:/# chwon
+bash: chwon: command not found
+root@b1565b132214:/# chmod 777 /var/log/mysql/
+root@b1565b132214:/# ls -l /var/log/mysql/
+total 0
+-rw-r--r-- 1 root root 0 May 20 22:46 general-query.log
+root@b1565b132214:/# chmod 777 /var/log/mysql
+root@b1565b132214:/# ls -l /var/log/mysql/
+total 0
+-rw-r--r-- 1 root root 0 May 20 22:46 general-query.log
+root@b1565b132214:/# ls -l /var/log/
+total 372
+-rw-r--r-- 1 root root   6749 May 20 22:41 alternatives.log
+drwxr-xr-x 1 root root   4096 May 20 22:41 apt
+-rw-rw---- 1 root utmp      0 Apr  8 00:00 btmp
+-rw-r--r-- 1 root root  31639 May 20 22:41 dpkg.log
+-rw-r--r-- 1 root root  32000 Apr 10 07:21 faillog
+-rw-rw-r-- 1 root utmp 292000 Apr 10 07:21 lastlog
+drwxrwxrwx 2 root root   4096 May 20 22:46 mysql
+-rw-rw-r-- 1 root utmp      0 Apr  8 00:00 wtmp
+root@b1565b132214:/# chmod 777 /var/log/mysql/general-query.log
+root@b1565b132214:/# ls -l /var/log/mysql/
+total 0
+-rwxrwxrwx 1 root root 0 May 20 22:46 general-query.log
+root@b1565b132214:/# mysql -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.23 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql>  SET GLOBAL general_log = 1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select AUTO_INCREMENT from information_schema.tables where  table_name='auto';
++----------------+
+| AUTO_INCREMENT |
++----------------+
+|              3 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql>  SHOW TABLE STATUS LIKE 'auto';
+ERROR 1046 (3D000): No database selected
+mysql> use hobby
+ERROR 1049 (42000): Unknown database 'hobby'
+mysql> use auto
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql>  SHOW TABLE STATUS LIKE 'auto';
++------+--------+---------+------------+------+----------------+-------------+-----------------+--------------+-----------+----------------+---------------------+-------------+------------+--------------------+----------+----------------+---------+
+| Name | Engine | Version | Row_format | Rows | Avg_row_length | Data_length | Max_data_length | Index_length | Data_free | Auto_increment | Create_time         | Update_time | Check_time | Collation
+| Checksum | Create_options | Comment |
++------+--------+---------+------------+------+----------------+-------------+-----------------+--------------+-----------+----------------+---------------------+-------------+------------+--------------------+----------+----------------+---------+
+| auto | InnoDB |      10 | Dynamic    |    2 |           8192 |       16384 |               0 |            0 |         0 |              3 | 2021-05-20 22:05:01 | NULL        | NULL       | utf8mb4_0900_ai_ci |     NULL |                |         |
++------+--------+---------+------------+------+----------------+-------------+-----------------+--------------+-----------+----------------+---------------------+-------------+------------+--------------------+----------+----------------+---------+
+1 row in set (0.00 sec)
+
+mysql> show variables like "%auto%";
++----------------------------------------------+-------+
+| Variable_name                                | Value |
++----------------------------------------------+-------+
+| auto_generate_certs                          | ON    |
+| auto_increment_increment                     | 1     |
+| auto_increment_offset                        | 1     |
+| autocommit                                   | ON    |
+| automatic_sp_privileges                      | ON    |
+| caching_sha2_password_auto_generate_rsa_keys | ON    |
+| innodb_autoextend_increment                  | 64    |
+| innodb_autoinc_lock_mode                     | 2     |
+| innodb_stats_auto_recalc                     | ON    |
+| sha256_password_auto_generate_rsa_keys       | ON    |
+| sql_auto_is_null                             | OFF   |
++----------------------------------------------+-------+
+11 rows in set (0.00 sec)
