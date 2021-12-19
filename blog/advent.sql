@@ -360,3 +360,228 @@ VALUES
         0.0,
         ' {"GNP": 3787042, "_id": "00005de917d8000000000000006d", "Code": "JPN", "Name": "Japan", "IndepYear": -660, "geography": {"Region": "Eastern Asia", "Continent": "Asia", "SurfaceArea": 377829}, "government": {"HeadOfState": "Akihito", "GovernmentForm": "Constitutional Monarchy"}, "demographics": {"Population": 146143, "LifeExpectancy": 80.69999694824219}}'
     )
+SELECT
+    *
+FROM
+    countryinfo c
+WHERE
+    doc -> "$.Code" = LOWER("ABW");
+
+SELECT
+    *
+FROM
+    country
+WHERE
+    code = "abw";
+
+SELECT
+    *
+FROM
+    countryinfo c;
+
+SELECT
+    id,
+    city.name,
+    District,
+    Info,
+    city.CountryCode,
+    c.name AS country_code,
+    capital,
+    code2,
+    Language,
+    IsOfficial,
+    percentage
+FROM
+    city
+    INNER JOIN country c ON city.CountryCode = c.Code
+    INNER JOIN countrylanguage c2 ON city.CountryCode = c2.CountryCode;
+
+SELECT
+    COUNT(*)
+FROM
+    city;
+
+SELECT
+    *
+FROM
+    city
+    INNER JOIN country c ON city.CountryCode = c.Code
+    INNER JOIN countrylanguage c2 ON city.CountryCode = c2.CountryCode;
+
+SELECT
+    COUNT(*)
+FROM
+    countrylanguage c2;
+
+SELECT
+    count(*)
+FROM
+    city
+    INNER JOIN country c ON city.CountryCode = c.Code;
+
+SELECT
+    *
+FROM
+    city c
+    JOIN countryinfo ON JSON_CONTAINS(
+        c.CountryCode,
+        countryinfo.doc -> '$.Code',
+        '$.Code'
+    );
+
+SELECT
+    *
+FROM
+    countryinfo c
+    JOIN city c2 ON JSON_UNQUOTE(JSON_EXTRACT(c.doc, '$.Code')) = c2.CountryCode;
+
+SELECT
+    JSON_EXTRACT(c.doc, '$.Code')
+FROM
+    countryinfo c;
+
+SELECT
+    doc,
+    _id,
+    _json_schema
+FROM
+    city
+    INNER JOIN country c ON city.CountryCode = c.Code
+    INNER JOIN countrylanguage c2 ON city.CountryCode = c2.CountryCode
+    INNER JOIN countryinfo c3 ON JSON_UNQUOTE(JSON_EXTRACT(c3.doc, '$.Code')) = city.CountryCode
+WHERE
+    city.name = "tokyo";
+
+SHOW CREATE TABLE hello_worlds;
+
+INSERT INTO
+    hello_worlds (
+        `City_Name`,
+        `District`,
+        `Info`,
+        `Country_Code`,
+        `Country_Name`,
+        `Capital`,
+        `Code2`,
+        `Language`,
+        `IsOfficial`,
+        `Percentage`,
+        `doc`
+    )
+SELECT
+    city.name,
+    District,
+    Info,
+    city.CountryCode,
+    c.name AS country_code,
+    capital,
+    code2,
+    Language,
+    IsOfficial,
+    percentage,
+    doc
+FROM
+    city
+    INNER JOIN country c ON city.CountryCode = c.Code
+    INNER JOIN countrylanguage c2 ON city.CountryCode = c2.CountryCode
+    INNER JOIN countryinfo c3 ON JSON_UNQUOTE(JSON_EXTRACT(c3.doc, '$.Code')) = city.CountryCode;
+
+SELECT
+    ci.doc -> '$.Code',
+    ci.doc -> '$.demographics.Population',
+    c.Capital
+FROM
+    world_x.country c
+    INNER JOIN world_x.countryinfo ci ON c.Code = ci.doc ->> '$.Code'
+WHERE
+    c.Name = 'Japan';
+
+SELECT
+    doc ->> '$.Code',
+    doc -> '$.demographics.Population',
+    Capital
+FROM
+    hello_worlds hw
+WHERE
+    City_Name = 'Japan';
+
+SELECT
+    DISTINCT doc ->> '$.Code',
+    doc -> '$.demographics.Population',
+    Capital
+FROM
+    hello_worlds hw
+WHERE
+    Country_Name = 'Japan';
+
+SELECT
+    DISTINCT Info -> '$.Population'
+FROM
+    hello_worlds
+WHERE
+    Country_Code = 'JPN'
+    AND City_Name = 'Tokyo';
+
+SELECT
+    CountryCode,
+    count(*)
+FROM
+    city
+GROUP BY
+    CountryCode
+ORDER BY
+    count(*) DESC
+LIMIT
+    10;
+
+SELECT
+    Country_Code,
+    COUNT(*)
+FROM
+    hello_worlds hw
+GROUP BY
+    Country_Code
+ORDER BY
+    COUNT(*) DESC
+LIMIT
+    10;
+
+SELECT
+    *
+FROM
+    city
+WHERE
+    CountryCode = "JPN"
+    AND (
+        name = "tokyo"
+        OR District = "tokyou"
+    );
+
+INSERT INTO
+    hello_worlds (
+        `City_Name`,
+        `District`,
+        `Info`,
+        `Country_Code`,
+        `Country_Name`,
+        `Capital`,
+        `Code2`,
+        `Language`,
+        `IsOfficial`,
+        `Percentage`,
+        `doc`
+    )
+VALUES
+    (
+        "Tokyo",
+        "minatoku",
+        '{"Population":146143}',
+        "JPN",
+        "Japan",
+        1532,
+        "JP",
+        "Japanese",
+        "F",
+        0.0,
+        ' {"GNP": 3787042, "_id": "00005de917d8000000000000006d", "Code": "JPN", "Name": "Japan", "IndepYear": -660, "geography": {"Region": "Eastern Asia", "Continent": "Asia", "SurfaceArea": 377829}, "government": {"HeadOfState": "Akihito", "GovernmentForm": "Constitutional Monarchy"}, "demographics": {"Population": 146143, "LifeExpectancy": 80.69999694824219}}'
+    )
