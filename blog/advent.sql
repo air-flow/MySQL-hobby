@@ -584,4 +584,14 @@ VALUES
         "F",
         0.0,
         ' {"GNP": 3787042, "_id": "00005de917d8000000000000006d", "Code": "JPN", "Name": "Japan", "IndepYear": -660, "geography": {"Region": "Eastern Asia", "Continent": "Asia", "SurfaceArea": 377829}, "government": {"HeadOfState": "Akihito", "GovernmentForm": "Constitutional Monarchy"}, "demographics": {"Population": 146143, "LifeExpectancy": 80.69999694824219}}'
-    )
+    );
+
+CREATE TABLE advents (
+    id int PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(64) NOT NULL,
+    description VARCHAR(4096) NOT NULL,
+    address VARCHAR(128) NOT NULL,
+    latitude DOUBLE PRECISION NOT NULL,
+    longitude DOUBLE PRECISION NOT NULL
+);
+
