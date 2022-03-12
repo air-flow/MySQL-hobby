@@ -26,3 +26,26 @@ select * from children inner join parents on  children.parent_id = parent_idx_co
 
 select * from children right outer join parents on  children.parent_id = parent_idx_col order by parents.parent_id asc ;
 select * from parents left outer join children on parent_idx_col = children.parent_id order by parents.parent_id asc ;
+
+select count(*),"A" from test where id = 1
+union all
+select count(*),"B" from test where id = 2
+union all
+select count(*),"C" from test where id = 3
+;
+select 
+  case 
+    when id = 1 then count(*) 
+  end as A,
+    case 
+    when id = 2 then count(*) 
+  end as B,
+    case 
+    when id = 3 then count(*) 
+  end as C
+from test;
+
+SELECT
+  (SELECT COUNT(*) FROM test WHERE id=1) AS A,
+  (SELECT COUNT(*) FROM test WHERE id=2) AS B,
+  (SELECT COUNT(*) FROM test WHERE id=3) AS C;
